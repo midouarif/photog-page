@@ -1,21 +1,22 @@
-import { timeStamp } from 'console';
 import mongoose from 'mongoose';
-const userShema = new mongoose.Schema({
-    username:{
+
+const userSchema = new mongoose.Schema({
+    username: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
-    email:{
+    email: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
-    password:{
+    password: {
         type: String,
-        require: true,
-        unique: true,
+        required: true,
     },
-},{timeStamp: true});
-const User = mongoose.model('User',userShema);
+}, { timestamps: true });
+
+const User = mongoose.model('User', userSchema);
+
 export default User;
