@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Oath from '../component/Oath';
+
+
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -24,6 +28,8 @@ const Signup = () => {
       });
       const data = await res.json();
       setLoading(false);
+      navigate('/signin');
+
       if (data.success===false) {
         setError(true);
         return;
@@ -44,6 +50,7 @@ const Signup = () => {
         <input type='text' placeholder='Email' id='email' className='bg-slate-100 p-3 rounded-lg' onChange={handleChange} />
         <input type='password' placeholder='Password' id='password' className='bg-slate-100 p-3 rounded-lg' onChange={handleChange} />
         <button type='submit' disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>{loading ?"loading":"Sign Up"}</button>
+        <Oath/>
       </form>
       <div className='text-center flex gap-2 mt-5'>
         <p className=''>Already have an account?</p>
