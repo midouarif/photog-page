@@ -12,12 +12,12 @@ function Header() {
             <ul className='flex gap-5'>
     <Link to='/'><li>Home</li></Link>
     <Link to='/about'><li>About</li></Link>
-    <Link to='/signup'>
+    <Link to='/profile'>
         {Currentuser ? (
             <li><img src={Currentuser.rest.profilePicture} alt={Currentuser.rest.username} className='w-8 h-8 rounded-full object-cover' /></li>
             
         ) : (
-            <li>Sign Up</li>
+            <li>Sign In</li>
         )}
     </Link>
 </ul>
