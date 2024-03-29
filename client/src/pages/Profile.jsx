@@ -6,6 +6,7 @@ import { getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase';
 import { getDownloadURL } from 'firebase/storage';
 
+
 const Profile = () => {
   const {Currentuser} = useSelector(state => state.user)
   const fileRef = useRef(null);
@@ -57,12 +58,12 @@ const Profile = () => {
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
       <form className='flex flex-col gap-5'>
         <input type='file' ref={fileRef} hidden accept='image/*' onChange={(e) => setImage(e.target.files[0])}/>
-        <img src={Currentuser.rest.profilePicture} alt='avatar' className='rounded-full h-24 w-24 mx-auto mt-2 cursor-pointer object-cover' onClick={() => fileRef.current.click()} />
+        <img src={formData.profilePicture ||Currentuser.user.profilePicture} alt='avatar' className='rounded-full h-24 w-24 mx-auto mt-2 cursor-pointer object-cover' onClick={() => fileRef.current.click()} />
         <p className='text-sm self-center'>
           {imageError? <span className='text-red-700'>Image upload failed (size must be less then 2Mb)</span> : imagePercent > 0 && imagePercent < 100? <span className='text-black'>{`Uploading ${imagePercent}%`}</span> : imagePercent === 100? <span className='text-green-700'>Image uploaded successfully</span> : null}
         </p>
-        <input defaultValue={Currentuser.rest.username} type='text' id='username' placeholder='Username' className='bg-slate-100 rounded-lg p-3' />
-        <input defaultValue={Currentuser.rest.email} type='email' id='email' placeholder='Email' className='bg-slate-100 rounded-lg p-3' />
+        <input defaultValue={Currentuser.user.username} type='text' id='username' placeholder='Username' className='bg-slate-100 rounded-lg p-3' />
+        <input defaultValue={Currentuser.user.email} type='email' id='email' placeholder='Email' className='bg-slate-100 rounded-lg p-3' />
         <input type='password' id='password' placeholder='Password' className='bg-slate-100 rounded-lg p-3' />
         <button className='bg-slate-800 text-white rounded-lg p-3 hover:opacity-95 disabled:opacity-80'>Update</button>
         <div className='flex justify-between'>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Oath from '../component/Oath';
+import logo5 from '../assets/images/logo5.jpg'
+
 
 
 
@@ -43,6 +45,8 @@ const Signup = () => {
   };
 
   return (
+    <>
+    <img src={logo5} alt='logo' className='h-28 w-28 mx-auto rounded-full mt-7 object-cover' />
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign Up</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
@@ -58,6 +62,7 @@ const Signup = () => {
       </div>
       <p className='text-center text-red-500 mt-3 font-semibold'>{error && 'An error occurred'}</p>
     </div>
+    </>
   );
 };
 

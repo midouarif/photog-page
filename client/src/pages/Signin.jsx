@@ -4,6 +4,11 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { signInStart,signInSuccess,signInFailure } from '../redux/user/userSlice';
 import Oath from '../component/Oath';
+import logo1 from '../assets/images/logo1.jpg'
+import logo2 from '../assets/images/logo2.jpg'
+import logo3 from '../assets/images/logo3.jpg'
+import logo4 from '../assets/images/logo4.jpg'
+import logo5 from '../assets/images/logo5.jpg'
 
 
 
@@ -49,6 +54,8 @@ const Signin = () => {
   
 
   return (
+    <>
+    <img src={logo5} alt='logo' className='h-28 w-28 mx-auto rounded-full mt-7 object-cover' />
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl text-center font-semibold my-7'>Sign In</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
@@ -63,6 +70,7 @@ const Signin = () => {
       </div>
       <p className='text-center text-red-500 mt-3 font-semibold'>{error ? error.message || 'An error occurred': ""}</p>
     </div>
+    </>
   );
 };
 
