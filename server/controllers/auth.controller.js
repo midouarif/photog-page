@@ -26,7 +26,12 @@ export const signin = async (req, res, next) => {
          return res.status(401).json({ message: "Invalid password!" });
       }
       const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
-      res.cookie('token', token, { httpOnly: true }).status(200).json({ user: validUser });
+      const { password: hashedPassword, ...rest } = validUser._doc;
+    const expiryDate = new Date(Date.now() + 3600000); // 1 hour
+    res
+      .cookie('access_token', token, { httpOnly: true, expires: expiryDate })
+      .status(200)
+      .json(rest);
    } catch (error) {
       next(error);
    }
@@ -39,7 +44,7 @@ export const google = async (req, res, next) => {
          const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
          const {password:hashedPassword, ...rest} = user._doc;
          const expiryDate = new Date(Date.now() + 3600000);
-         res.cookie('token', token, { httpOnly: true, expires: expiryDate }).status(200).json({ user });
+         res.cookie('token', token, { httpOnly: true, expires: expiryDate }).status(200).json(rest);
       }
       else{
          const generatedPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
@@ -50,7 +55,7 @@ export const google = async (req, res, next) => {
          const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
          const {password:hashedPassword2, ...rest} = newUser._doc;
          const expiryDate = new Date(Date.now() + 3600000);
-         res.cookie('token', token, { httpOnly: true, expires: expiryDate }).status(200).json({ user });
+         res.cookie('token', token, { httpOnly: true, expires: expiryDate }).status(200).json(rest);
       }
    } catch (error) {
       next(error);

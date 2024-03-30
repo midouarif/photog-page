@@ -14,17 +14,21 @@ function Header() {
                     <img src={logo5} alt='logo' className='h-14 w-14 rounded-full object-cover mr-3' />
                     <Link to='/' className='font-bold text-gray-800 hover:text-gray-900 transition-colors'>Ephoto</Link>
                 </div>
-                <ul className='flex gap-8'>
-                    <li><Link to='/' className='px-2 py-1 rounded-lg '>Home</Link></li>
-                    <li><Link to='/about' className='px-2 py-1 rounded-lg '>About</Link></li>
-                    <li>
+                <div className="flex items-center gap-8">
+                    <ul className='flex gap-8'>
+                        <li><Link to='/' className='px-2 py-1 rounded-lg'>Home</Link></li>
+                        <li><Link to='/about' className='px-2 py-1 rounded-lg'>About</Link></li>
+                    </ul>
+                    <div>
+                        <Link to='/profile'>
                         {Currentuser ? (
-                            <img src={Currentuser.user.profilePicture} alt={Currentuser.user.username} className='w-8 h-8 rounded-full object-cover' />
+                            <img src={Currentuser.profilePicture} alt={Currentuser.username} className='w-10 h-10 rounded-full object-cover' />
                         ) : (
-                            <Link to='/signin' className='px-4 py-2 '>Sign In</Link>
+                            <li>Sign In</li>
                         )}
-                    </li>
-                </ul>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
     );

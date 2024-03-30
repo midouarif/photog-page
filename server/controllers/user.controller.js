@@ -1,5 +1,6 @@
 import bcryptjs from 'bcryptjs';
-import User from '../models/user.model';
+import User from '../models/user.module.js';
+import { errorhandler } from '../utils/error.js';
 export const test = (req, res) => {
     res.json({
         message: 'API is working...'
@@ -7,7 +8,7 @@ export const test = (req, res) => {
 };
 export const updateUser = async (req, res, next) => {
     if(req.user.id !== req.params.id) {
-        return res.status(401).json({ message: "You can update only your account" });
+        return next(errorhandler(401, "You can update only your account"));
     }
     try {
         if(req.body.password) {
@@ -20,7 +21,9 @@ export const updateUser = async (req, res, next) => {
                 password: req.body.password,
                 profilePicture: req.body.profilePicture,
             },
-        } , {new: true});
+        }, 
+        {new: true}
+        );
         const { password, ...rest } = updatedUser._doc;
         res.status(200).json(rest);
 
