@@ -7,6 +7,7 @@ import { app } from '../firebase';
 import { getDownloadURL } from 'firebase/storage';
 import {useDispatch} from 'react-redux'
 import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
+import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
 
 
 
@@ -87,6 +88,24 @@ const Profile = () => {
     }
 };
 
+const handleDeleteAcc = async () => {
+  try {
+    dispatch(deleteUserStart());
+    const res = await fetch(`/server/user/delete/${Currentuser._id}`,{
+      method: 'DELETE',
+    });
+    const data = await res.json();
+    if(data.success === false){
+      dispatch(deleteUserFailure(data));
+      return;
+    }
+    dispatch(deleteUserSuccess(data));
+
+  } catch (error) {
+    dispatch(deleteUserFailure(error));
+  }
+}
+
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -102,7 +121,7 @@ const Profile = () => {
         <input type='password' id='password' placeholder='Password' className='bg-slate-100 rounded-lg p-3' onChange={handleChange} />
         <button className='bg-slate-800 text-white rounded-lg p-3 hover:opacity-95 disabled:opacity-80'>Update</button>
         <div className='flex justify-between'>
-          <span className='text-red-700 cursor-pointer'>Delete Account </span>
+          <span onClick={handleDeleteAcc} className='text-red-700 cursor-pointer'>Delete Account </span>
           <span className='text-red-700 cursor-pointer'>Sign Out </span>
         </div>
       </form>

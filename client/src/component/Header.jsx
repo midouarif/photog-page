@@ -24,7 +24,7 @@ function Header() {
                         {Currentuser ? (
                             <img src={Currentuser.profilePicture} alt={Currentuser.username} className='w-10 h-10 rounded-full object-cover' />
                         ) : (
-                            <li>Sign In</li>
+                            <span>Sign In</span>
                         )}
                         </Link>
                     </div>
