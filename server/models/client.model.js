@@ -15,7 +15,8 @@ const clientSchema = new mongoose.Schema({
         unique: true,
     },
     photo: {
-        type: String, // Assuming the photo path will be stored as a string
+        type: String,
+        required: true,
     }
 }, { timestamps: true });
 

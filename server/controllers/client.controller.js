@@ -1,7 +1,7 @@
 import Client from "../models/client.model.js";
 
 export const uploadClient = async (req, res, next) => {
-   const { firstName, lastName, cardNumber } = req.body;
+   const { firstName, lastName, cardNumber, photoURL } = req.body; // Assuming photoURL is the URL of the uploaded image
    try {
       // Check if a client with the same card number already exists
       const existingClient = await Client.findOne({ cardNumber });
@@ -10,12 +10,7 @@ export const uploadClient = async (req, res, next) => {
       }
 
       // Create a new instance of the Client model with the provided data
-      const newClient = new Client({ firstName, lastName, cardNumber });
-
-      // If a file was uploaded, set the photo path in the client object
-      if (req.file) {
-         newClient.photo = req.file.path;
-      }
+      const newClient = new Client({ firstName, lastName, cardNumber, photo: photoURL });
       
       // Save the new client data to the database
       await newClient.save();
