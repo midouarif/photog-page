@@ -17,9 +17,11 @@ export const updateUser = async (req, res, next) => {
         }
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             $set:{
+                fullName: req.body.fullName,
                 username: req.body.username,
                 email: req.body.email,
                 password: req.body.password,
+                location: req.body.location,
                 profilePicture: req.body.profilePicture,
             },
         }, 
@@ -32,6 +34,7 @@ export const updateUser = async (req, res, next) => {
         next(error);
     } 
 };
+
 
 export const deleteUser = async (req, res, next) => {
     if(req.user.id !== req.params.id) {
