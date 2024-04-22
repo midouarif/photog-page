@@ -16,7 +16,13 @@ function Header() {
                 </div>
                 <div className="flex items-center gap-8">
                     <ul className='flex gap-8'>
-                        <li><Link to='/' className='px-2 py-1 rounded-lg'>Home</Link></li>
+                        <li><Link to='/'>
+                        {Currentuser ? (
+                            <span>Home</span>
+                        ) : (
+                            <span></span>
+                        )}
+                        </Link></li>
                         <li><Link to='/about' className='px-2 py-1 rounded-lg'>About</Link></li>
                     </ul>
                     <div>

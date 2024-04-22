@@ -8,6 +8,7 @@ import { getDownloadURL } from 'firebase/storage';
 import {useDispatch} from 'react-redux'
 import { updateUserStart, updateUserSuccess, updateUserFailure } from '../redux/user/userSlice';
 import { deleteUserStart, deleteUserSuccess, deleteUserFailure } from '../redux/user/userSlice';
+import { signOut } from '../redux/user/userSlice';
 
 
 
@@ -28,7 +29,7 @@ const Profile = () => {
   const handleImageUpload = async () => {
       const storage = getStorage(app);
       const fileName = new Date().getTime() + image.name;
-      const storageRef = ref(storage, fileName);
+      const storageRef = ref(storage,"profilePic/"+fileName);
       const uploadTask = uploadBytesResumable(storageRef, image);
 
       uploadTask.on('state_changed', 
@@ -43,7 +44,7 @@ const Profile = () => {
               console.log('Upload is running');
               break;
           }
-          setImagePercent(progress);
+          setImagePercent(Math.round(progress));
         }, 
         (error) => {
           console.log(error);
@@ -106,6 +107,15 @@ const handleDeleteAcc = async () => {
   }
 }
 
+const handleSignOut = async() =>{
+  try {
+    const res = await fetch('/server/auth/signout')
+    dispatch(signOut())
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
@@ -122,7 +132,7 @@ const handleDeleteAcc = async () => {
         <button className='bg-slate-800 text-white rounded-lg p-3 hover:opacity-95 disabled:opacity-80'>Update</button>
         <div className='flex justify-between'>
           <span onClick={handleDeleteAcc} className='text-red-700 cursor-pointer'>Delete Account </span>
-          <span className='text-red-700 cursor-pointer'>Sign Out </span>
+          <span onClick={handleSignOut} className='text-red-700 cursor-pointer'>Sign Out </span>
         </div>
       </form>
     </div>
