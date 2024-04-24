@@ -112,7 +112,7 @@ const Home = () => {
   <div className='mt-5 flex items-center'>
     {/* Client Photo */}
     <div className='mr-5'>
-      <img src={uploadedClient.photo} alt='Client Photo' className='max-w-full h-auto' />
+      <img src={uploadedClient.photo} alt='Client Photo' className='rounded-md h-40 w-40 mx-auto mt-2 cursor-pointer object-cover' />
     </div>
     {/* Client Information */}
     <div>
