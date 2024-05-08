@@ -12,7 +12,7 @@ function Header() {
             <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
                 <div className='flex items-center'>
                     <img src={logo5} alt='logo' className='h-14 w-14 rounded-full object-cover mr-3' />
-                    <Link to='/' className='font-bold text-gray-800 hover:text-gray-900 transition-colors'>Ephoto</Link>
+                    <p className='font-bold text-gray-800 hover:text-gray-900 transition-colors'>Ephoto</p>
                 </div>
                 <div className="flex items-center gap-8">
                     <ul className='flex gap-8'>

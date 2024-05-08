@@ -17,7 +17,15 @@ const clientSchema = new mongoose.Schema({
     photo: {
         type: String,
         required: true,
-    }
+    },
+    uniqueCode: {
+        type: String,
+        required: false,
+    },
+    qrCode: {
+        type: String,
+        required: false,
+    },
 }, { timestamps: true });
 
 const Client = mongoose.model('Client', clientSchema);

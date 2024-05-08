@@ -12,26 +12,35 @@ export const updateUser = async (req, res, next) => {
         return next(errorhandler(401, "You can update only your account"));
     }
     try {
-        if(req.body.password) {
+        // Check if password exists in the request body
+        if (req.body.password) {
+            // Hash the new password
             req.body.password = bcryptjs.hashSync(req.body.password, 10);
+        } else {
+            // If password doesn't exist, exclude it from the update operation
+            delete req.body.password;
         }
+
+        // Update the user data
         const updatedUser = await User.findByIdAndUpdate(req.params.id, {
             $set:{
                 fullName: req.body.fullName,
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
+                password: req.body.password, // This will be updated if a new password is provided, or remain unchanged if not
                 location: req.body.location,
                 profilePicture: req.body.profilePicture,
             },
         }, 
         {new: true}
         );
+
+        // Exclude password field from the response
         const { password, ...rest } = updatedUser._doc;
         res.status(200).json(rest);
 
     } catch (error) {
-        next(error);
+        errorhandler(error);
     } 
 };
 
